@@ -3,6 +3,9 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+(use-package vterm
+    :ensure t)
+
 (add-hook 'c-mode-hook
           (lambda ()
             (setq indent-tabs-mode nil)
@@ -29,9 +32,6 @@
 
 ;; Make ESC key exit out of menus
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-(add-to-list 'load-path "~/.emacs.d/plugs/emacs-libvterm")
-(require 'vterm)
 
 ;; Display a vertical line at column 80
 (setq-default display-fill-column-indicator-column 80)
