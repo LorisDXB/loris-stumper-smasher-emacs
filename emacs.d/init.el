@@ -1,20 +1,7 @@
-;; Add this to your Emacs configuration file if you haven't already
+;; Set up package.el and MELPA
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
-
-(unless (package-installed-p 'evil)
-  (package-install 'evil))
-
-(unless (package-installed-p 'vterm)
-  (package-install 'vterm))
-
-;; Enable Evil
-(require 'evil)
-(evil-mode 1)
-
-(use-package vterm
-    :ensure t)
 
 (add-hook 'c-mode-hook
           (lambda ()
@@ -27,27 +14,79 @@
 (setq-default tab-width 4) ; Set the desired width of a tab (in spaces)
 (setq-default c-basic-offset 4) ; Set the default indentation for C-like modes
 
-(global-display-line-numbers-mode)
-;;
-;; Epitech configuration
-;;
-(add-to-list 'load-path "~/.emacs.d/lisp")
-(load "site-start.d/epitech-init.el")
-
-;; Install required packages
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-(unless (package-installed-p 'general)
-  (package-install 'general))
-
-;; Make ESC key exit out of menus
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
 ;; Display a vertical line at column 80
 (setq-default display-fill-column-indicator-column 80)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
-(electric-pair-mode t)
+;; Install required packages
+(defvar my-packages '(use-package evil fzf general neotree vterm all-the-icons doom-themes))
+
+(dolist (pkg my-packages)
+  (unless (package-installed-p pkg)
+    (package-refresh-contents)
+    (package-install pkg)))
+
+;; Set up use-package
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; Enable line numbers
+(global-display-line-numbers-mode)
+(setq display-line-numbers-type 'relative)
+
+;; Enable word wrap
+(global-visual-line-mode t)
+
+;; Set up auto-pairs
+(use-package smartparens
+  :ensure t
+  :config
+  (smartparens-global-mode 1))
+
+;; Set up doom-themes
+(use-package doom-themes
+  :ensure t
+  :config)
+  
+
+;; Set up neotree
+(use-package neotree
+  :ensure t
+  :bind ("<leader>T" . neotree-toggle))
+
+;; Set up fzf
+(use-package fzf
+  :ensure t
+  :bind ("<leader>." . fzf))
+
+;; Set up evil mode
+(use-package evil
+  :ensure t
+  :init
+  (evil-mode 1))
+
+;; Set up syntastic (you can use flycheck as an alternative)
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode))
+
+;; Set up smooth scrolling
+(use-package smooth-scrolling
+  :ensure t
+  :config
+  (smooth-scrolling-mode 1))
+
+;; Set up doom-modeline for a minimalistic status line
+(use-package doom-modeline
+  :ensure t
+  :init
+  (doom-modeline-mode 1))
+
+;; Set up custom key bindings
+(evil-define-key 'normal global-map (kbd "<leader>.") 'fzf)
+(evil-define-key 'normal global-map (kbd "<leader>T") 'neotree-toggle)
+
 
 (general-define-key
  :states '(normal visual insert emacs)
@@ -60,47 +99,18 @@
  "f" 'vterm
  "SPC" 'other-window
  )
+;; Set background based on time
+(if (< (string-to-number (format-time-string "%H")) 12)
+    (load-theme 'doom-one-light t)
+  (load-theme 'doom-one t))
 
-(use-package vline
-  :ensure t
-  :config
-  (setq vline-global-mode t
-        vline-idle-time 0.5))
-
-(add-to-list 'load-path "~/.emacs.d/plugs/flycheck")
-(evil-mode 1)
-
-(setq-default tab-width 4) ;; Set the default tab width
-(setq-default c-basic-offset 4) ;; Set the default shift width for C-like modes
-
-;; Syntastic configuration
-(require 'flycheck)
-(setq-default flycheck-highlighting-mode 'lines)
-
-(setq flycheck-checker-error-threshold nil)
-
-;; Configure the statusline for Syntastic
-(setq-default mode-line-format
-              (list
-               '(:eval (flycheck-format-statusline '(:eval (syntastic-statusline-flag))))))
-
-;; Configure Neotree options
-(setq neo-theme 'icons) ;; Adjust the theme based on your preference
-(setq neo-smart-open t)
-(setq projectile-switch-project-action 'neotree-projectile-action) ;; If you're using Projectile
-
-
-;; Syntastic-like configuration for Flycheck
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (flycheck-mode)
-            (setq-local flycheck-check-syntax-automatically '(save mode-enabled))))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(neotree yasnippet general)))
+ '(package-selected-packages
+   '(doom-modeline smooth-scrolling flycheck smartparens doom-themes all-the-icons neotree fzf evil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
