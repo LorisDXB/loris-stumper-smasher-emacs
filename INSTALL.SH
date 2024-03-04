@@ -15,8 +15,8 @@ else
 fi
 
 if [ -e "$backup_file" ]; then
-    mv "$backup_file" ".emacs.bak"
-    echo ".emacs renamed to .emacs.bak"
+    rm "$backup_file" 
+	echo ".emacs rm'd"
 fi
 
 echo "Script execution complete."
