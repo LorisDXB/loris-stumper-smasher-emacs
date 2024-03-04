@@ -81,8 +81,6 @@
 (setq neo-smart-open t)
 (setq projectile-switch-project-action 'neotree-projectile-action) ;; If you're using Projectile
 
-;; Configure Vterm options
-(require 'vterm)
 
 ;; Syntastic-like configuration for Flycheck
 (add-hook 'prog-mode-hook
