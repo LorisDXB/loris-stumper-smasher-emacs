@@ -3,6 +3,13 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+(unless (package-installed-p 'evil)
+  (package-install 'evil))
+
+;; Enable Evil
+(require 'evil)
+(evil-mode 1)
+
 (use-package vterm
     :ensure t)
 
@@ -57,9 +64,7 @@
   (setq vline-global-mode t
         vline-idle-time 0.5))
 
-(add-to-list 'load-path "~/.emacs.d/plugs/evil")
 (add-to-list 'load-path "~/.emacs.d/plugs/flycheck")
-(require 'evil)
 (evil-mode 1)
 
 (setq-default tab-width 4) ;; Set the default tab width
