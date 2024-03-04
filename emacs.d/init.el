@@ -18,8 +18,8 @@
 (setq-default display-fill-column-indicator-column 80)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
-;; Install required packages
-(defvar my-packages '(use-package evil fzf general neotree vterm all-the-icons doom-themes))
+;; Install required packages  ADD evil HERE IN THE PACKAGES TO ADD VIM KEYBINDINGS
+(defvar my-packages '(use-package fzf general neotree vterm all-the-icons doom-themes))
 
 (dolist (pkg my-packages)
   (unless (package-installed-p pkg)
@@ -59,11 +59,11 @@
   :ensure t
   :bind ("<leader>." . fzf))
 
-;; Set up evil mode
-(use-package evil
-  :ensure t
-  :init
-  (evil-mode 1))
+;; Set up evil mode (UNCOMMENT IF YOU USE EVIL)
+;;(use-package evil
+;;  :ensure t
+;;  :init
+;;  (evil-mode 1))
 
 ;; Set up syntastic (you can use flycheck as an alternative)
 (use-package flycheck
@@ -83,18 +83,13 @@
   :init
   (doom-modeline-mode 1))
 
-;; Set up custom key bindings
-(evil-define-key 'normal global-map (kbd "<leader>.") 'fzf)
-(evil-define-key 'normal global-map (kbd "<leader>T") 'neotree-toggle)
-
-
 (general-define-key
  :states '(normal visual insert emacs)
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
  ;; Define your key bindings here
  ;; For example:
- "." 'find-file
+ "." 'fzf
  "t" 'neotree-toggle
  "f" 'vterm
  "SPC" 'other-window
