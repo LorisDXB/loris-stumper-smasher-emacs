@@ -19,7 +19,7 @@
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
 ;; Install required packages  ADD evil HERE IN THE PACKAGES TO ADD VIM KEYBINDINGS
-(defvar my-packages '(use-package fzf general neotree vterm all-the-icons doom-themes))
+(defvar my-packages '(use-package fzf evil general neotree vterm all-the-icons doom-themes))
 
 (dolist (pkg my-packages)
   (unless (package-installed-p pkg)
@@ -60,10 +60,10 @@
   :bind ("<leader>." . fzf))
 
 ;; Set up evil mode (UNCOMMENT IF YOU USE EVIL)
-;;(use-package evil
-;;  :ensure t
-;;  :init
-;;  (evil-mode 1))
+(use-package evil
+  :ensure t
+  :init
+  (evil-mode 1))
 
 ;; Set up syntastic (you can use flycheck as an alternative)
 (use-package flycheck
