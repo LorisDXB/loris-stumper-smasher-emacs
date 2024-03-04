@@ -1,0 +1,4 @@
+/home/lorisdxb/emacs-libvterm/build/CMakeFiles/vterm-module.dir
+/home/lorisdxb/emacs-libvterm/build/CMakeFiles/run.dir
+/home/lorisdxb/emacs-libvterm/build/CMakeFiles/edit_cache.dir
+/home/lorisdxb/emacs-libvterm/build/CMakeFiles/rebuild_cache.dir
