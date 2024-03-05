@@ -12,9 +12,6 @@
 (setq-default tab-width 4) 
 (setq-default c-basic-offset 4) 
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
-(load "site-start.d/epitech-init.el")
-
 (setq-default display-fill-column-indicator-column 80)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
@@ -86,15 +83,7 @@
  )
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(package-selected-packages
    '(doom-modeline smooth-scrolling flycheck smartparens doom-themes all-the-icons neotree fzf evil)))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  )
