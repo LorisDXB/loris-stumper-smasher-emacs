@@ -12,3 +12,4 @@ sudo dnf install libvterm
 note:
 
 this config uses vim keybindings, if you don't want them, remove them in the init.el (know that this will destroy other keybindings, you'll have to fix it)
+(or not)
